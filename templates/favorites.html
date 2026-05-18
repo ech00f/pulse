@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Избранное</h1>
+{% if not tracks %}
+<p class="text-muted">Добавляйте треки в избранное на странице прослушивания.</p>
+{% else %}
+<ul class="list-group">
+    {% for track in tracks %}
+    <li class="list-group-item">
+        <a href="{{ url_for('track_page', track_id=track.id) }}">{{ track.title }}</a>
+        — {{ track.artist }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+.cover-thumb {
+    height: 160px;
+    object-fit: cover;
+}
+
+.cover-large {
+    max-height: 320px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 1.1rem;
+}

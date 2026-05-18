@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Регистрация</h1>
+{% if message %}<p class="alert alert-warning">{{ message }}</p>{% endif %}
+<form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>{{ form.name.label }} {{ form.name(class="form-control") }}</p>
+    <p>{{ form.email.label }} {{ form.email(class="form-control", type="email") }}</p>
+    <p>{{ form.password.label }} {{ form.password(class="form-control", type="password") }}</p>
+    <p>{{ form.password_again.label }} {{ form.password_again(class="form-control", type="password") }}</p>
+    <p>{{ form.submit(class="btn btn-primary") }}</p>
+</form>
+{% endblock %}

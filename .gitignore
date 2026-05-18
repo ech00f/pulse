@@ -1,0 +1,10 @@
+.idea/
+venv/
+__pycache__/
+*.pyc
+db/*.db
+static/uploads/audio/*
+static/uploads/covers/*
+!static/uploads/audio/.gitkeep
+!static/uploads/covers/.gitkeep
+.env

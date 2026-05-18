@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Мои плейлисты</h1>
+<a href="{{ url_for('playlists_web.create_playlist') }}" class="btn btn-primary mb-3">Создать плейлист</a>
+{% if not playlists %}
+<p class="text-muted">Плейлистов пока нет.</p>
+{% else %}
+<ul class="list-group">
+    {% for pl in playlists %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{ pl.name }}{% if not pl.is_public %} <span class="badge bg-secondary">личный</span>{% endif %}
+            — {{ pl.tracks|length }} трек(ов)</span>
+        <span>
+            <a href="{{ url_for('playlists_web.playlist_detail', playlist_id=pl.id) }}" class="btn btn-sm btn-outline-primary">Открыть</a>
+            <form method="post" action="{{ url_for('playlists_web.delete_playlist', playlist_id=pl.id) }}" class="d-inline"
+                  onsubmit="return confirm('Удалить плейлист?');">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
+            </form>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

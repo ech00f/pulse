@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ title or 'Плейлист' }}</h1>
+<form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>{{ form.name.label }} {{ form.name(class="form-control") }}</p>
+    <p>{{ form.is_public() }} {{ form.is_public.label }}</p>
+    <p>{{ form.submit(class="btn btn-primary") }}</p>
+</form>
+{% endblock %}

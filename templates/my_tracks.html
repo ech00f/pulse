@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Мои треки</h1>
+<a href="{{ url_for('upload') }}" class="btn btn-primary mb-3">Загрузить</a>
+{% if not tracks %}
+<p class="text-muted">Вы ещё не загружали треки.</p>
+{% else %}
+<ul class="list-group">
+    {% for track in tracks %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{ track.title }} — {{ track.artist }}
+            {% if not track.is_public %}<span class="badge bg-secondary">личный</span>{% endif %}
+        </span>
+        <span>
+            <a href="{{ url_for('track_page', track_id=track.id) }}" class="btn btn-sm btn-outline-primary">Открыть</a>
+            <form method="post" action="{{ url_for('delete_track', track_id=track.id) }}" class="d-inline"
+                  onsubmit="return confirm('Удалить?');">
+                <button class="btn btn-sm btn-outline-danger" type="submit">Удалить</button>
+            </form>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Загрузить трек</h1>
+<form method="post" enctype="multipart/form-data" novalidate>
+    {{ form.hidden_tag() }}
+    <p>{{ form.title.label }} {{ form.title(class="form-control") }}</p>
+    <p>{{ form.artist.label }} {{ form.artist(class="form-control") }}</p>
+    <p>{{ form.audio.label }} {{ form.audio(class="form-control") }}</p>
+    <p>{{ form.cover.label }} {{ form.cover(class="form-control") }}</p>
+    <p>{{ form.is_public() }} {{ form.is_public.label }}</p>
+    <p>{{ form.submit(class="btn btn-primary") }}</p>
+</form>
+{% endblock %}

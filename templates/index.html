@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mb-3">Каталог</h1>
+{% if not tracks %}
+<p class="text-muted">Пока нет публичных треков. {% if current_user.is_authenticated %}
+    <a href="{{ url_for('upload') }}">Загрузите первый</a>{% endif %}.</p>
+{% else %}
+<div class="row g-3 mb-4">
+    {% for track in tracks %}
+    <div class="col-md-4 col-sm-6">
+        <div class="card h-100">
+            {% if track.cover_filename %}
+            <img src="{{ url_for('serve_cover', filename=track.cover_filename) }}" class="card-img-top cover-thumb" alt="">
+            {% else %}
+            <div class="card-img-top cover-thumb bg-secondary d-flex align-items-center justify-content-center text-white">♪</div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ track.title }}</h5>
+                <p class="card-text text-muted mb-2">{{ track.artist }}</p>
+                <a href="{{ url_for('track_page', track_id=track.id) }}" class="btn btn-primary btn-sm">Слушать</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if public_playlists %}
+<h2 class="h4 mt-4">Публичные плейлисты</h2>
+<ul class="list-group">
+    {% for pl in public_playlists %}
+    <li class="list-group-item d-flex justify-content-between">
+        <span>{{ pl.name }} — {{ pl.tracks|length }} трек(ов)</span>
+        <a href="{{ url_for('playlists_web.playlist_detail', playlist_id=pl.id) }}" class="btn btn-sm btn-outline-primary">Открыть</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

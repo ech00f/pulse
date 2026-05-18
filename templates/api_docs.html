@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>REST API</h1>
+
+<h2 class="h5">Треки</h2>
+<table class="table table-sm">
+    <thead><tr><th>Метод</th><th>URL</th><th>Описание</th></tr></thead>
+    <tbody>
+    <tr><td>GET</td><td>/api/tracks</td><td>Список, ?q=поиск</td></tr>
+    <tr><td>GET</td><td>/api/tracks/&lt;id&gt;</td><td>Один трек</td></tr>
+    <tr><td>POST</td><td>/api/tracks</td><td>Создать (с валидацией полей)</td></tr>
+    <tr><td>DELETE</td><td>/api/tracks/&lt;id&gt;</td><td>Удалить</td></tr>
+    </tbody>
+</table>
+
+<h2 class="h5">Пользователи</h2>
+<table class="table table-sm">
+    <tbody>
+    <tr><td>GET</td><td>/api/users</td><td>Список (без паролей)</td></tr>
+    <tr><td>GET</td><td>/api/users/&lt;id&gt;</td><td>Профиль и публичные треки</td></tr>
+    </tbody>
+</table>
+
+<h2 class="h5">Плейлисты</h2>
+<table class="table table-sm">
+    <tbody>
+    <tr><td>GET</td><td>/api/playlists</td><td>Список, ?user_id=</td></tr>
+    <tr><td>GET</td><td>/api/playlists/&lt;id&gt;</td><td>Плейлист с треками</td></tr>
+    <tr><td>POST</td><td>/api/playlists</td><td>Создать (name, user_id)</td></tr>
+    <tr><td>POST</td><td>/api/playlists/&lt;id&gt;/tracks</td><td>Добавить track_id</td></tr>
+    <tr><td>DELETE</td><td>/api/playlists/&lt;id&gt;/tracks/&lt;track_id&gt;</td><td>Убрать трек</td></tr>
+    </tbody>
+</table>
+
+<p><a href="{{ url_for('export_catalog') }}">Скачать catalog.csv</a></p>
+{% endblock %}

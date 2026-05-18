@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ playlist.name }}</h1>
+<p class="text-muted">Автор: {{ playlist.owner.name }} · {{ playlist.tracks|length }} трек(ов)</p>
+{% if is_owner %}
+<form method="post" action="{{ url_for('playlists_web.delete_playlist', playlist_id=playlist.id) }}" class="mb-3"
+      onsubmit="return confirm('Удалить плейлист?');">
+    <button type="submit" class="btn btn-danger btn-sm">Удалить плейлист</button>
+</form>
+{% endif %}
+
+{% if playlist.tracks %}
+<ul class="list-group mb-4">
+    {% for track in playlist.tracks %}
+    <li class="list-group-item">
+        <a href="{{ url_for('track_page', track_id=track.id) }}">{{ track.title }}</a> — {{ track.artist }}
+        {% if is_owner %}
+        <form method="post" action="{{ url_for('playlists_web.remove_track', playlist_id=playlist.id, track_id=track.id) }}" class="d-inline float-end">
+            <button type="submit" class="btn btn-sm btn-outline-secondary">Убрать</button>
+        </form>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="text-muted">В плейлисте пока нет треков.</p>
+{% endif %}
+
+{% if is_owner and my_tracks %}
+<h2 class="h5">Добавить свой трек</h2>
+<ul class="list-group">
+    {% for track in my_tracks %}
+    {% if track not in playlist.tracks %}
+    <li class="list-group-item d-flex justify-content-between">
+        <span>{{ track.title }} — {{ track.artist }}</span>
+        <form method="post" action="{{ url_for('playlists_web.add_track', playlist_id=playlist.id, track_id=track.id) }}">
+            <button type="submit" class="btn btn-sm btn-primary">Добавить</button>
+        </form>
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
